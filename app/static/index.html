@@ -7,14 +7,21 @@
 <link rel="icon" type="image/png" href="/image/icon" hx-get>
 <meta charset="UTF-8">
 
-<div hx-get="/api/title" hx-trigger="load"></div>
+<div hx-get="/text/title" hx-trigger="load"></div>
 
 </head>
 <body>
-<style type="image/png" hx-get="/image/background" hx-trigger="load"></style>
-<!-- <div hx-get="/image/background" hx-trigger="load" hx-target="body.style.background"></div> -->
-<div hx-get="/api/toptext" hx-trigger="load"></div>
-<div hx-get="/api/centertext" hx-trigger="load every 3s"></div>
-
+<div hx-get="/text/top" hx-trigger="load"></div>
+<div hx-get="/text/center" hx-trigger="load every 3s"></div>
+<img src="/image/center" hx-get hx-trigger="load" class="centerimage"></img>
 </body>
+<script>
+    fetch("/image/background")
+        .then(res => res.blob())
+        .then(blob => {
+            var img = URL.createObjectURL(blob);
+            document.body.style.backgroundImage = `url(${img})`;
+        });
+    document.body.style.backgroundSize = "cover";
+</script>
 </html>
