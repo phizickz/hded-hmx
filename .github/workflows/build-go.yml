@@ -3,8 +3,24 @@ name: Build image
 on: [push]
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - name: test
-              run: echo "hello"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22.3'
+
+      - name: Build binary
+        run: |
+          make
+        #  tar -cvf binaries.tar bin Dockerfile
+        
+    #   - name: Upload artifact
+    #     uses: actions/upload-artifact@v4
+    #     with:
+    #       name: artifact
+    #       path: |
+    #         binaries.tar
